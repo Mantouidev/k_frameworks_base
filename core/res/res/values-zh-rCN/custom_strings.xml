@@ -8,9 +8,9 @@
     <!-- Button to reboot the phone, within the Reboot Options dialog -->
     <string name="reboot_reboot">重新启动</string>
     <!-- Button to reboot the phone into recovery, within the Reboot Options dialog -->
-    <string name="reboot_recovery">恢复模式</string>
+    <string name="reboot_recovery">恢复模式 > Recovery</string>
     <!-- Button to reboot the phone into bootloader, within the Reboot Options dialog -->
-    <string name="reboot_bootloader">引导模式</string>
+    <string name="reboot_bootloader">引导模式 > Bootloader</string>
     <!-- Button to reboot the phone into bootmenu, within the Reboot Options dialog -->
     <string name="reboot_bootmenu">启动菜单</string>
     <!-- Button to reboot the phone into fastboot, within the Reboot Options dialog -->
