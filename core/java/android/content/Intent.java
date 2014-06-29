@@ -2252,6 +2252,21 @@ public class Intent implements Parcelable, Cloneable {
             "android.intent.action.USB_AUDIO_ACCESSORY_PLUG";
 
     /**
+     * <p>Broadcast Action: The user has changed carrier label:</p>
+     * <ul>
+     *   <li><em>state</em> - String value.</li>
+     * </ul>
+     *
+     * <p class="note">This is a protected intent that can only be sent
+     * by the system.
+     *
+     * @hide
+     */
+    //@SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
+    public static final String ACTION_CUSTOM_CARRIER_LABEL_CHANGED
+            = "android.intent.action.CUSTOM_CARRIER_LABEL";
+
+    /**
      * Broadcast Action: A USB audio device was plugged in or unplugged.
      *
      * <p>The intent will have the following extra values:

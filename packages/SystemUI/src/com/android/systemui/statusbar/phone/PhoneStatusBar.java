@@ -259,6 +259,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode {
 
     private boolean mShowCarrierInPanel = false;
 
+    // Status bar carrier
+    private boolean mShowStatusBarCarrier;
+
     // position
     int[] mPositionTmp = new int[2];
     boolean mExpandedVisible;
@@ -356,6 +359,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode {
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL), false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CARRIER), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SCREEN_BRIGHTNESS_MODE), false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CUSTOM_HEADER), false, this, UserHandle.USER_ALL);
@@ -380,6 +385,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode {
             mBrightnessControl = !autoBrightness && Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0
                     , UserHandle.USER_CURRENT) == 1;
+            mShowStatusBarCarrier = Settings.System.getIntForUser(
+                    resolver, Settings.System.STATUS_BAR_CARRIER, 0
+                    , UserHandle.USER_CURRENT) == 1;
+            showStatusBarCarrierLabel(mShowStatusBarCarrier);
             mCustomHeader = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_CUSTOM_HEADER, 0
                     , UserHandle.USER_CURRENT) == 1;
@@ -1616,6 +1625,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode {
         if ((diff & StatusBarManager.DISABLE_CLOCK) != 0) {
             boolean show = (state & StatusBarManager.DISABLE_CLOCK) == 0;
             showClock(show);
+            //add CarrierLabel
+            showStatusBarCarrierLabel(show);
         }
         if ((diff & StatusBarManager.DISABLE_EXPAND) != 0) {
             if ((state & StatusBarManager.DISABLE_EXPAND) != 0) {
@@ -3167,6 +3178,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode {
         mClockCenter.updateSettings();
 
         super.userSwitched(newUserId);
+    }
+
+    public void showStatusBarCarrierLabel(boolean show) {
+        if (mStatusBarView == null) return;
+        ContentResolver resolver = mContext.getContentResolver();
+        View statusBarCarrierLabel = mStatusBarView.findViewById(R.id.status_bar_carrier_label);
+        if (statusBarCarrierLabel != null) {
+            statusBarCarrierLabel.setVisibility(show ? (mShowStatusBarCarrier ? View.VISIBLE : View.GONE) : View.GONE);
+        }
     }
 
     private void resetUserSetupObserver() {
