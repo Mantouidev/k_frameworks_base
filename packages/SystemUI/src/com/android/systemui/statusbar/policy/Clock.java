@@ -76,7 +76,7 @@ public class Clock extends TextView implements DemoMode {
 
     protected int mClockDateDisplay = CLOCK_DATE_DISPLAY_GONE;
     protected int mClockDateStyle = CLOCK_DATE_STYLE_UPPERCASE;
-    protected int mClockStyle = STYLE_CLOCK_RIGHT;
+    protected int mClockStyle = STYLE_CLOCK_CENTER;
     protected boolean mShowClock = true;
     protected boolean mShowClockStatusBar = true;
 
@@ -98,7 +98,7 @@ public class Clock extends TextView implements DemoMode {
                     .getUriFor(Settings.System.STATUSBAR_CLOCK_AM_PM_STYLE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System
-                    .getUriFor(Settings.System.STATUSBAR_CLOCK_STYLE), false,
+                    .getUriFor(Settings.System.STATUSBAR_CLOCK_STYLE), true,
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.STATUSBAR_CLOCK_DATE_DISPLAY), false,
@@ -324,7 +324,7 @@ public class Clock extends TextView implements DemoMode {
         mClockFormatString = "";
 
         mClockStyle = Settings.System.getIntForUser(resolver,
-                Settings.System.STATUSBAR_CLOCK_STYLE, STYLE_CLOCK_RIGHT,
+                Settings.System.STATUSBAR_CLOCK_STYLE, STYLE_CLOCK_CENTER,
                 UserHandle.USER_CURRENT);
         mClockDateDisplay = Settings.System.getIntForUser(resolver,
                 Settings.System.STATUSBAR_CLOCK_DATE_DISPLAY, CLOCK_DATE_DISPLAY_GONE,
